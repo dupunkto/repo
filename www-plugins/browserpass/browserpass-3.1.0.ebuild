@@ -1,0 +1,71 @@
+# Copyright 1999-2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+inherit go-module
+MY_PN=browserpass-native
+
+DESCRIPTION="WebExtension host binary for app-admin/pass, a UNIX password manager"
+HOMEPAGE="https://github.com/browserpass/browserpass-native"
+
+SRC_URI="https://github.com/browserpass/${MY_PN}/archive/${PV}.tar.gz -> ${P}.tar.gz
+	https://dev.gentoo.org/~mattst88/distfiles/${P}-deps.tar.xz"
+
+LICENSE="BSD ISC MIT"
+SLOT="0"
+KEYWORDS="~amd64"
+IUSE="firefox librewolf chromium chrome brave vivaldi"
+RDEPEND="app-crypt/gnupg"
+
+S="${WORKDIR}"/${MY_PN}-${PV}
+
+src_compile() {
+	ego build || die
+
+	sed -e "s|%%replace%%|${EPREFIX}/usr/libexec/browserpass-native|" \
+		-i browser-files/firefox-host.json browser-files/chromium-host.json || die
+}
+
+src_install() {
+	exeinto /usr/libexec
+	doexe browserpass-native
+
+	use firefox && dofirefox
+    	use librewolf && dolibrewolf
+	use chromium && dochromium
+    	use chrome && dochrome
+    	use brave && dochrome
+	use vivaldi && dovivaldi
+}
+
+dofirefox() {
+	insinto /usr/lib/mozilla/native-messaging-hosts
+	newins browser-files/firefox-host.json com.github.browserpass.native.json
+
+	insinto /usr/lib64/mozilla/native-messaging-hosts
+	newins browser-files/firefox-host.json com.github.browserpass.native.json
+}
+
+dolibrewolf() {
+	insinto /usr/lib/librewolf/native-messaging-hosts
+	newins browser-files/firefox-host.json com.github.browserpass.native.json
+
+	insinto /usr/lib64/librewolf/native-messaging-hosts
+	newins browser-files/firefox-host.json com.github.browserpass.native.json	
+}
+
+dochromium() {
+	insinto /etc/chromium/native-messaging-hosts
+	newins browser-files/chromium-host.json com.github.browserpass.native.json
+}
+
+dochrome() {
+	insinto /etc/opt/chrome/native-messaging-hosts
+	newins browser-files/chromium-host.json com.github.browserpass.native.json
+}
+
+dovivaldi() {
+	insinto /etc/opt/vivaldi/native-messaging-hosts
+	newins browser-files/chromium-host.json com.github.browserpass.native.json
+}
+
