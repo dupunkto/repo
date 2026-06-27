@@ -77,7 +77,7 @@ release:homebrew() {
   TARBALL="dotfiles-$VERSION.tar.gz"
 
   git -C "$DOTFILES_CLONE" archive \
-    --prefix="dotfiles-$VERSION/" HEAD | gzip > "$DIST/$TARBALL"
+    --prefix="dotfiles-$VERSION/" HEAD | gzip -n > "$DIST/$TARBALL"
 
   URL="${URL}/${TARBALL}"
   SHA="$(openssl dgst -sha256 "$DIST/$TARBALL" | awk '{print $2}')"
