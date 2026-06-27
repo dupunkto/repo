@@ -1,0 +1,12 @@
+Package: keychain
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@roblog.nl>
+Depends: bash, shellutils, gnupg
+Recommends: systemd
+Section: utils
+Priority: optional
+Description: GPG passphrase manager
+ Stores GPG key passphrases encrypted with systemd-creds and preloads them
+ into the GPG agent on boot. Falls back to plain text if systemd-creds is
+ unavailable.

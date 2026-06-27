@@ -1,0 +1,5 @@
+name: repo.dupunkto.org
+type: static
+host: nov
+src: dist
+rsync: immediate

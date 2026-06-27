@@ -1,0 +1,6 @@
+bin/required required
+bin/has has
+bin/prompt prompt
+bin/err err
+bin/quiet quiet
+bin/sluggify sluggify

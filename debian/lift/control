@@ -1,0 +1,10 @@
+Package: lift
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@roblog.nl>
+Depends: bash, shellutils, yq, docker.io | docker-ce
+Section: utils
+Priority: optional
+Description: Remote deployment manager for containers and static files
+ Orchestrates deployment via Docker SSH contexts and rsync. Has native
+ support for Synology devices. Includes a client and server-side script.

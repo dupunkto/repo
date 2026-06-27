@@ -1,0 +1,204 @@
+#!/bin/bash
+
+required openssl
+required git
+
+DIST="$(pwd)/dist"
+CACHE="$(pwd)/tmp"
+PUBLIC="$(pwd)/public"
+
+DOTFILES_REMOTE=du:meta/dotfiles
+DOTFILES_CLONE="$CACHE/dotfiles"
+
+URL=https://repo.dupunkto.org
+
+if [ "$(uname)" = "Darwin" ]; then
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+fi
+
+p:version() {
+  printf 'r%s.%s' \
+    "$(git -C "$DOTFILES_CLONE" rev-list --count HEAD)" \
+    "$(git -C "$DOTFILES_CLONE" rev-parse --short HEAD)"
+}
+
+p:commit() {
+  git -C "$DOTFILES_CLONE" rev-parse HEAD
+}
+
+setup() {
+  mkdir -p "$DIST"
+  mkdir -p "$CACHE"
+
+  if [ -d "$DOTFILES_CLONE/.git" ]; then
+    git -C "$DOTFILES_CLONE" pull -q
+  else
+    git clone -q "$DOTFILES_REMOTE" "$DOTFILES_CLONE"
+  fi
+}
+
+clean() {
+  rm -rf "$DIST"
+  rm -rf "$CACHE"
+}
+
+manifest() {
+  echo "==> Building manifests"
+  manifest:gentoo
+}
+
+release() {
+  setup
+
+  echo "==> Releasing $(p:version) ($(p:commit))"
+
+  # Clean up build artifacts from previous release.
+  rm -rf "$DIST" && cp -r "$PUBLIC" "$DIST"
+
+  release:homebrew
+  release:arch
+  release:debian
+
+  if prompt -y "Push release to production?"; then
+    git add arch && git add Formula
+    git commit -m "Release $(p:version) ($(p:commit))"
+
+    git push
+    lift deploy -n
+  fi
+}
+
+release:homebrew() {
+  setup
+
+  echo "-> homebrew"
+
+  VERSION="$(p:version)"
+  TARBALL="dotfiles-$VERSION.tar.gz"
+
+  git -C "$DOTFILES_CLONE" archive \
+    --prefix="dotfiles-$VERSION/" HEAD | gzip > "$DIST/$TARBALL"
+
+  URL="${URL}/${TARBALL}"
+  SHA="$(openssl dgst -sha256 "$DIST/$TARBALL" | awk '{print $2}')"
+
+  for f in Formula/*.rb; do
+    awk \
+      -v url="$URL" -v sha="$SHA" -v ver="$VERSION" \
+      '/^  url "https:\/\/repo\.dupunkto\.org\/dotfiles-/ {
+         print "  url \"" url "\""
+         next
+       }
+       /^  sha256 "/ { print "  sha256 \"" sha "\""; next }
+       /^  version "/ { print "  version \"" ver "\""; next }
+       { print }' \
+      "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+  done
+}
+
+manifest:gentoo() {
+  required pkgdev
+
+  echo "-> gentoo"
+
+  for pkg in *-*/*/; do
+    (cd "$pkg" && pkgdev manifest)
+  done
+}
+
+release:arch() {
+  required makepkg
+  required repo-add
+
+  setup
+
+  echo "-> arch"
+
+  # Clean up build artifacts from previous release.
+  try chmod -R u+rwx "$CACHE/makepkg-build"
+  rm -rf "$CACHE/makepkg-build"
+
+  mkdir -p "$DIST/arch/any" "$CACHE/makepkg-src" "$CACHE/makepkg-build"
+
+  flags=(--noconfirm --nodeps --clean --cleanbuild)
+
+  if [ "$(uname)" = "Darwin" ]; then
+    echo 'PKGEXT=".pkg.tar.zst"' > "$CACHE/makepkg.conf"
+    echo 'SRCEXT=".src.tar.gz"' >> "$CACHE/makepkg.conf"
+    echo 'BUILDENV=(color)' >> "$CACHE/makepkg.conf"
+
+    flags+=(--config "$CACHE/makepkg.conf")
+  fi
+
+  for pkg in arch/*/; do
+    NAME="$(basename "$pkg")"
+
+    (
+      cd "$pkg"
+      export BUILDDIR="$CACHE/makepkg-build/$NAME"
+      export SRCDEST="$CACHE/makepkg-src"
+      export PKGDEST="$DIST/arch/any"
+
+      makepkg "${flags[@]}"
+    )
+  done
+
+  repo-add "$DIST/arch/any/dupunkto.db.tar.gz" "$DIST"/arch/any/*.pkg.tar.zst
+}
+
+release:debian() {
+  required dpkg-deb
+  required dpkg-scanpackages
+
+  setup
+
+  echo "-> debian"
+
+  VERSION="$(p:version)"
+
+  mkdir -p "$DIST/debian/pool"
+
+  for pkg in debian/*/; do
+    NAME="$(basename "$pkg")"
+    STAGING="$DIST/debian/staging/$NAME"
+
+    rm -rf "$STAGING" && mkdir -p "$STAGING/DEBIAN" "$STAGING/usr/bin"
+
+    while IFS=' ' read -r src_file dst_name; do
+      install -Dm755 "$DOTFILES_CLONE/$src_file" "$STAGING/usr/bin/$dst_name"
+    done < "$pkg/files"
+
+    sed "s/^Version:.*/Version: ${VERSION#r}-1/" "$pkg/control" \
+      > "$STAGING/DEBIAN/control"
+
+    dpkg-deb --root-owner-group --build "$STAGING" \
+      "$DIST/debian/pool/${NAME}_${VERSION}_all.deb"
+  done
+
+  rm -rf "$DIST/debian/staging"
+
+  STABLE="$DIST/debian/dists/stable"
+  REL="main/binary-all/Packages.gz"
+
+  mkdir -p "$(dirname "$STABLE/$REL")"
+
+  (cd "$DIST/debian" && dpkg-scanpackages pool/) | gzip -9 > "$STABLE/$REL"
+
+  SIZE=$(wc -c < "$STABLE/$REL")
+  MD5=$(openssl dgst -md5 "$STABLE/$REL" | awk '{print $2}')
+  SHA256=$(openssl dgst -sha256 "$STABLE/$REL" | awk '{print $2}')
+
+  cat > "$STABLE/Release" <<EOF
+Origin: dupunkto
+Label: dupunkto
+Suite: stable
+Codename: stable
+Architectures: all
+Components: main
+Date: $(date -u '+%a, %d %b %Y %H:%M:%S UTC')
+MD5Sum:
+ $MD5 $SIZE $REL
+SHA256:
+ $SHA256 $SIZE $REL
+EOF
+}

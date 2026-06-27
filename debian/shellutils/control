@@ -1,0 +1,10 @@
+Package: shellutils
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@roblog.nl>
+Depends: bash
+Section: utils
+Priority: optional
+Description: POSIX shell utilities
+ Small POSIX sh utilities.
+ required, has, prompt, err, quiet, sluggify.

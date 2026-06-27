@@ -1,0 +1,2 @@
+bin/lift lift
+bin/lift-remote lift-remote

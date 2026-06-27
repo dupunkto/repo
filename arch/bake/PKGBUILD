@@ -1,0 +1,21 @@
+# Maintainer: Robin Boers <axcelott@roblog.nl>
+pkgname=bake
+pkgdesc='Bash-based Makefile replacement'
+pkgver=r1.0000000
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash' 'shellutils')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/bake "$pkgdir/usr/bin/bake"
+}

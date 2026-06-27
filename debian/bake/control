@@ -1,0 +1,10 @@
+Package: bake
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@roblog.nl>
+Depends: bash, shellutils
+Section: utils
+Priority: optional
+Description: Bash-based Makefile replacement
+ Simple task runner that sources a Bakefile and executes
+ named shell functions as targets.

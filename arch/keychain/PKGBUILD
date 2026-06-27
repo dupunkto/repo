@@ -1,0 +1,22 @@
+# Maintainer: Robin Boers <axcelott@roblog.nl>
+pkgname=keychain
+pkgdesc='GPG passphrase manager'
+pkgver=r1.0000000
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash' 'shellutils' 'gnupg')
+optdepends=('systemd: encrypted passphrase storage via systemd-creds')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/keychain "$pkgdir/usr/bin/keychain"
+}

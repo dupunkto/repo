@@ -1,0 +1,9 @@
+Package: wt
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@roblog.nl>
+Depends: git, shellutils
+Section: utils
+Priority: optional
+Description: Git worktree manager
+ Manages git worktrees with per-repo setup hooks.

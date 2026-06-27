@@ -1,0 +1,26 @@
+# Maintainer: Robin Boers <axcelott@roblog.nl>
+pkgname=shellutils
+pkgdesc='POSIX shell utility scripts'
+pkgver=r1.0000000
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/required  "$pkgdir/usr/bin/required"
+  install -Dm755 bin/has       "$pkgdir/usr/bin/has"
+  install -Dm755 bin/prompt    "$pkgdir/usr/bin/prompt"
+  install -Dm755 bin/err       "$pkgdir/usr/bin/err"
+  install -Dm755 bin/quiet     "$pkgdir/usr/bin/quiet"
+  install -Dm755 bin/sluggify  "$pkgdir/usr/bin/sluggify"
+}
