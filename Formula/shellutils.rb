@@ -2,9 +2,9 @@ class Shellutils < Formula
   desc "POSIX shell utility scripts"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r1.0000000.tar.gz"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
-  version "r1.0000000"
+  url "https://repo.dupunkto.org/dotfiles-r480.c1c5be8.tar.gz"
+  sha256 "302bc9dba408eeb5538134ad161f8c0cc2fdaa2055ecb19c1f570eaa3b7920a3"
+  version "r480.c1c5be8"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 
