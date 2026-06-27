@@ -1,7 +1,7 @@
 Package: lift
 Version: 0.0.0
 Architecture: all
-Maintainer: Robin Boers <axcelott@roblog.nl>
+Maintainer: Robin Boers <axcelott@dupunkto.org>
 Depends: bash, shellutils, yq, docker.io | docker-ce
 Section: utils
 Priority: optional

@@ -12,6 +12,9 @@ DOTFILES_CLONE="$CACHE/dotfiles"
 
 URL=https://repo.dupunkto.org
 
+export PACKAGER="Robin Boers <axcelott@dupunkto.org>"
+export SIGNING_KEY=67129351629DE9FDD6382A22F3A58BE3EB77795B
+
 if [ "$(uname)" = "Darwin" ]; then
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
@@ -64,7 +67,7 @@ release() {
     git commit -m "Release $(p:version) ($(p:commit))"
 
     git push
-    lift deploy -n
+    lift deploy -y
   fi
 }
 
@@ -120,7 +123,7 @@ release:arch() {
 
   mkdir -p "$DIST/arch/any" "$CACHE/makepkg-src" "$CACHE/makepkg-build"
 
-  flags=(--noconfirm --nodeps --clean --cleanbuild)
+  flags=(--noconfirm --nodeps --clean --cleanbuild --sign --key "$SIGNING_KEY")
 
   if [ "$(uname)" = "Darwin" ]; then
     echo 'PKGEXT=".pkg.tar.zst"' > "$CACHE/makepkg.conf"
@@ -129,6 +132,15 @@ release:arch() {
 
     flags+=(--config "$CACHE/makepkg.conf")
   fi
+
+  # Export the signing key for the dupunkto-keyring package.
+  gpg --export "$SIGNING_KEY" > arch/dupunkto-keyring/dupunkto.gpg
+
+  echo "# $PACKAGER" > arch/dupunkto-keyring/dupunkto-trusted
+  echo "$SIGNING_KEY:4:" >> arch/dupunkto-keyring/dupunkto-trusted
+
+  # Publish the signing key for the manual pacman-key trust path.
+  gpg --armor --export "$SIGNING_KEY" > "$DIST/keyring.asc"
 
   for pkg in arch/*/; do
     NAME="$(basename "$pkg")"
@@ -143,7 +155,9 @@ release:arch() {
     )
   done
 
-  repo-add "$DIST/arch/any/dupunkto.db.tar.gz" "$DIST"/arch/any/*.pkg.tar.zst
+  repo-add -s -k "$SIGNING_KEY" \
+    "$DIST/arch/any/dupunkto.db.tar.gz" \
+    "$DIST"/arch/any/*.pkg.tar.zst
 }
 
 release:debian() {

@@ -1,0 +1,16 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=dupunkto-keyring
+pkgdesc='GPG keys used to sign the dupunkto package repository'
+pkgver=1 # Bump on key rotation, not on every release.
+pkgrel=1
+arch=('any')
+url='https://repo.dupunkto.org'
+license=('Unlicense')
+install="$pkgname.install"
+source=('dupunkto.gpg' 'dupunkto-trusted')
+b2sums=('SKIP' 'SKIP')
+
+package() {
+  install -Dm644 dupunkto-trusted "$pkgdir/usr/share/pacman/keyrings/dupunkto-trusted"
+  install -Dm644 dupunkto.gpg "$pkgdir/usr/share/pacman/keyrings/dupunkto.gpg"
+}

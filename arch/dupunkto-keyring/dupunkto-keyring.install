@@ -1,0 +1,15 @@
+post_upgrade() {
+  if usr/bin/pacman-key -l >/dev/null 2>&1; then
+    usr/bin/pacman-key --populate dupunkto
+  fi
+}
+
+post_install() {
+  post_upgrade
+}
+
+post_remove() {
+  if usr/bin/pacman-key -l >/dev/null 2>&1; then
+    usr/bin/pacman-key --delete dupunkto 2>/dev/null || true
+  fi
+}

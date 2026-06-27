@@ -21,9 +21,14 @@ emerge app-containers/lift
 ## Arch linux
 
 ```sh
+curl -fsSL https://repo.dupunkto.org/keyring.asc | pacman-key --add -
+pacman-key --lsign-key 67129351629DE9FDD6382A22F3A58BE3EB77795B
 printf '[dupunkto]\nServer = https://repo.dupunkto.org/arch/any\n' >> /etc/pacman.conf
-pacman -Sy lift
+pacman -Sy dupunkto-keyring lift
 ```
+
+> The `dupunkto-keyring` package lets pacman pick up future key rotations
+> automatically, so the `pacman-key` steps only have to be executed once.
 
 ## Debian / Ubuntu
 
