@@ -2,9 +2,9 @@ class Bake < Formula
   desc "Bash-based Makefile replacement"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r484.24a1822.tar.gz"
-  sha256 "c822f68333d21d52904804aa3bd0090cf9bd87c461a4641858d2d94544816c64"
-  version "r484.24a1822"
+  url "https://repo.dupunkto.org/dotfiles-r485.4e1f5c6.tar.gz"
+  sha256 "f2d0d4bf8806fc41686eb64e49a83a3acb503d5031d9aabdd965b0600edf40c7"
+  version "r485.4e1f5c6"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 
