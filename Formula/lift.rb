@@ -2,9 +2,9 @@ class Lift < Formula
   desc "Remote deployment manager for containers and static files"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r524.f70d817.tar.gz"
-  sha256 "48ca631eae5c1b187c85d1b4af62bed229bd9b6710d5cd965e81787a740e0028"
-  version "r524.f70d817"
+  url "https://repo.dupunkto.org/dotfiles-r555.466f0cf.tar.gz"
+  sha256 "ff1cf6a906d5ee328572ac9b3e23f7343c7ba727cf91835e24f4d0fe14627379"
+  version "r555.466f0cf"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 

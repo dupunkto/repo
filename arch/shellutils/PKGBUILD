@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=shellutils
 pkgdesc='POSIX shell utility scripts'
-pkgver=r524.f70d817
+pkgver=r555.466f0cf
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'
