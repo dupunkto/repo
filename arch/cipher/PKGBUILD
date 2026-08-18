@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=cipher
 pkgdesc='Securely send passphrases and API keys'
-pkgver=r24.99681c4
+pkgver=r25.1dd3cf0
 pkgrel=1
 arch=('any')
 url='https://git.dupunkto.org/~dupunkto/cipher'
