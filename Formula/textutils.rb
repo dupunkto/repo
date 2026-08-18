@@ -1,5 +1,5 @@
-class Shellutils < Formula
-  desc "POSIX shell utility scripts"
+class Textutils < Formula
+  desc "POSIX shell text utility scripts"
   homepage "https://geheimesite.nl"
 
   url "https://repo.dupunkto.org/dotfiles-r524.f70d817.tar.gz"
@@ -10,13 +10,14 @@ class Shellutils < Formula
 
   license "Unlicense"
 
+  depends_on "coreutils"
+  depends_on "shellutils"
+
   def install
-    bin.install "bin/required"
-    bin.install "bin/has"
-    bin.install "bin/prompt"
-    bin.install "bin/err"
-    bin.install "bin/try"
-    bin.install "bin/quiet"
-    bin.install "bin/swallow"
+    bin.install "bin/digest"
+    bin.install "bin/lower"
+    bin.install "bin/upper"
+    bin.install "bin/trim"
+    bin.install "bin/sluggify"
   end
 end

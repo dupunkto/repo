@@ -1,5 +1,5 @@
-class Shellutils < Formula
-  desc "POSIX shell utility scripts"
+class Procutils < Formula
+  desc "Shell process utility scripts"
   homepage "https://geheimesite.nl"
 
   url "https://repo.dupunkto.org/dotfiles-r524.f70d817.tar.gz"
@@ -11,12 +11,7 @@ class Shellutils < Formula
   license "Unlicense"
 
   def install
-    bin.install "bin/required"
-    bin.install "bin/has"
-    bin.install "bin/prompt"
-    bin.install "bin/err"
-    bin.install "bin/try"
-    bin.install "bin/quiet"
-    bin.install "bin/swallow"
+    bin.install "bin/spawn"
+    bin.install "bin/log"
   end
 end

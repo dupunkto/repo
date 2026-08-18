@@ -1,0 +1,22 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=procutils
+pkgdesc='Shell process utility scripts'
+pkgver=r524.f70d817
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/spawn  "$pkgdir/usr/bin/spawn"
+  install -Dm755 bin/log    "$pkgdir/usr/bin/log"
+}

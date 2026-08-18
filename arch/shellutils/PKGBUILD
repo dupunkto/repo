@@ -21,6 +21,7 @@ package() {
   install -Dm755 bin/has       "$pkgdir/usr/bin/has"
   install -Dm755 bin/prompt    "$pkgdir/usr/bin/prompt"
   install -Dm755 bin/err       "$pkgdir/usr/bin/err"
+  install -Dm755 bin/try       "$pkgdir/usr/bin/try"
   install -Dm755 bin/quiet     "$pkgdir/usr/bin/quiet"
-  install -Dm755 bin/sluggify  "$pkgdir/usr/bin/sluggify"
+  install -Dm755 bin/swallow   "$pkgdir/usr/bin/swallow"
 }

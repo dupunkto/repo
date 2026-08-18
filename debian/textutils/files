@@ -1,0 +1,5 @@
+bin/digest digest
+bin/lower lower
+bin/upper upper
+bin/trim trim
+bin/sluggify sluggify

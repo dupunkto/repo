@@ -1,0 +1,10 @@
+Package: procutils
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: bash
+Section: utils
+Priority: optional
+Description: Shell process utilities
+ Small shell utilities for running and logging processes.
+ spawn, log.

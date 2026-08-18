@@ -2,5 +2,6 @@ bin/required required
 bin/has has
 bin/prompt prompt
 bin/err err
+bin/try try
 bin/quiet quiet
-bin/sluggify sluggify
+bin/swallow swallow

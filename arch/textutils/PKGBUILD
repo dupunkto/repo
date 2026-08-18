@@ -1,0 +1,25 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=textutils
+pkgdesc='POSIX shell text utility scripts'
+pkgver=r524.f70d817
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('coreutils' 'shellutils')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/digest    "$pkgdir/usr/bin/digest"
+  install -Dm755 bin/lower     "$pkgdir/usr/bin/lower"
+  install -Dm755 bin/upper     "$pkgdir/usr/bin/upper"
+  install -Dm755 bin/trim      "$pkgdir/usr/bin/trim"
+  install -Dm755 bin/sluggify  "$pkgdir/usr/bin/sluggify"
+}

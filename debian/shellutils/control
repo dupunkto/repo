@@ -7,4 +7,4 @@ Section: utils
 Priority: optional
 Description: POSIX shell utilities
  Small POSIX sh utilities.
- required, has, prompt, err, quiet, sluggify.
+ required, has, prompt, err, try, quiet, swallow.

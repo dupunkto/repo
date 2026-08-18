@@ -1,0 +1,10 @@
+Package: textutils
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: coreutils, shellutils
+Section: utils
+Priority: optional
+Description: POSIX shell text utilities
+ Small POSIX sh utilities for hashing and transforming text.
+ digest, lower, upper, trim, sluggify.
