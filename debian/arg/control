@@ -1,0 +1,8 @@
+Package: arg
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Section: utils
+Priority: optional
+Description: POSIX shell argument parser
+ Small argument parser for POSIX shell scripts.
