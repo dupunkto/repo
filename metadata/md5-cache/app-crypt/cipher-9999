@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DESCRIPTION=Securely send passphrases and API keys
+EAPI=8
+HOMEPAGE=https://git.dupunkto.org/~dupunkto/cipher
+INHERIT=git-r3
+KEYWORDS=-*
+LICENSE=Unlicense
+PROPERTIES=live
+RDEPEND=app-misc/jq net-libs/nodejs net-misc/curl sys-apps/arg sys-apps/shellutils
+SLOT=0
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_md5_=b93d31ddb7da1ca4698236b1a3549207

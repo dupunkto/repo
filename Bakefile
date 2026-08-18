@@ -7,8 +7,10 @@ DIST="$(pwd)/dist"
 CACHE="$(pwd)/tmp"
 PUBLIC="$(pwd)/public"
 
-DOTFILES_REMOTE=du:meta/dotfiles
-DOTFILES_CLONE="$CACHE/dotfiles"
+SOURCES=(
+  "dotfiles:meta/dotfiles:$CACHE/dotfiles"
+  "cipher:dupunkto/cipher:$CACHE/cipher"
+)
 
 URL=https://repo.dupunkto.org
 
@@ -21,22 +23,41 @@ fi
 
 p:version() {
   printf 'r%s.%s' \
-    "$(git -C "$DOTFILES_CLONE" rev-list --count HEAD)" \
-    "$(git -C "$DOTFILES_CLONE" rev-parse --short HEAD)"
+    "$(git -C "$1" rev-list --count HEAD)" \
+    "$(git -C "$1" rev-parse --short HEAD)"
 }
 
 p:commit() {
-  git -C "$DOTFILES_CLONE" rev-parse HEAD
+  git -C "$1" rev-parse HEAD
+}
+
+p:use() {
+  for SPEC in "${SOURCES[@]}"; do
+    IFS=: read -r SOURCE REMOTE CLONE <<< "$SPEC"
+    [ "$SOURCE" = "$1" ] && return
+  done
+
+  err "unknown package source '$1'"
 }
 
 setup() {
   mkdir -p "$DIST"
   mkdir -p "$CACHE"
 
-  if [ -d "$DOTFILES_CLONE/.git" ]; then
-    git -C "$DOTFILES_CLONE" pull -q
+  for SPEC in "${SOURCES[@]}"; do
+    IFS=: read -r SOURCE REMOTE CLONE <<< "$SPEC"
+    setup:clone "du:$REMOTE" "$CLONE"
+  done
+}
+
+setup:clone() {
+  remote=$1
+  clone=$2
+
+  if [ -d "$clone/.git" ]; then
+    git -C "$clone" pull -q
   else
-    git clone -q "$DOTFILES_REMOTE" "$DOTFILES_CLONE"
+    git clone -q "$remote" "$clone"
   fi
 }
 
@@ -53,7 +74,17 @@ manifest() {
 release() {
   setup
 
-  echo "==> Releasing $(p:version) ($(p:commit))"
+  p:use dotfiles
+  DOTFILES_VERSION="$(p:version "$CLONE")"
+  DOTFILES_COMMIT="$(p:commit "$CLONE")"
+
+  p:use cipher
+  CIPHER_VERSION="$(p:version "$CLONE")"
+  CIPHER_COMMIT="$(p:commit "$CLONE")"
+
+  echo "==> Releasing packages"
+  echo "-> dotfiles $DOTFILES_VERSION ($DOTFILES_COMMIT)"
+  echo "-> cipher $CIPHER_VERSION ($CIPHER_COMMIT)"
 
   # Clean up build artifacts from previous release.
   rm -rf "$DIST" && cp -r "$PUBLIC" "$DIST"
@@ -63,8 +94,11 @@ release() {
   release:debian
 
   if prompt -y "Push release to production?"; then
-    git add arch && git add Formula
-    git commit -m "Release $(p:version) ($(p:commit))"
+    git add arch Formula
+
+    if ! git diff --cached --quiet; then
+      git commit -m "Release dotfiles/$DOTFILES_VERSION cipher/$CIPHER_VERSION"
+    fi
 
     git push
     lift deploy -y
@@ -76,26 +110,31 @@ release:homebrew() {
 
   echo "-> homebrew"
 
-  VERSION="$(p:version)"
-  TARBALL="dotfiles-$VERSION.tar.gz"
+  for SPEC in "${SOURCES[@]}"; do
+    IFS=: read -r SOURCE REMOTE CLONE <<< "$SPEC"
 
-  git -C "$DOTFILES_CLONE" archive \
-    --prefix="dotfiles-$VERSION/" HEAD | gzip -n > "$DIST/$TARBALL"
+    VERSION="$(p:version "$CLONE")"
+    TARBALL="$SOURCE-$VERSION.tar.gz"
 
-  URL="${URL}/${TARBALL}"
-  SHA="$(openssl dgst -sha256 "$DIST/$TARBALL" | awk '{print $2}')"
+    git -C "$CLONE" archive \
+      --prefix="$SOURCE-$VERSION/" HEAD | gzip -n > "$DIST/$TARBALL"
 
-  for f in Formula/*.rb; do
-    awk \
-      -v url="$URL" -v sha="$SHA" -v ver="$VERSION" \
-      '/^  url "https:\/\/repo\.dupunkto\.org\/dotfiles-/ {
-         print "  url \"" url "\""
-         next
-       }
-       /^  sha256 "/ { print "  sha256 \"" sha "\""; next }
-       /^  version "/ { print "  version \"" ver "\""; next }
-       { print }' \
-      "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+    ARCHIVE_URL="${URL}/${TARBALL}"
+    SHA="$(openssl dgst -sha256 "$DIST/$TARBALL" | awk '{print $2}')"
+
+    for f in Formula/*.rb; do
+      SOURCE_FILE="${f%.rb}.source"
+      [ -f "$SOURCE_FILE" ] || err "missing source for Homebrew formula '$f'"
+      [ "$(cat "$SOURCE_FILE")" = "$SOURCE" ] || continue
+
+      awk \
+        -v url="$ARCHIVE_URL" -v sha="$SHA" -v ver="$VERSION" \
+        '/^  url / { print "  url \"" url "\""; next }
+         /^  sha256 / { print "  sha256 \"" sha "\""; next }
+         /^  version / { print "  version \"" ver "\""; next }
+         { print }' \
+        "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+    done
   done
 }
 
@@ -168,18 +207,21 @@ release:debian() {
 
   echo "-> debian"
 
-  VERSION="$(p:version)"
-
   mkdir -p "$DIST/debian/pool"
 
   for pkg in debian/*/; do
     NAME="$(basename "$pkg")"
     STAGING="$DIST/debian/staging/$NAME"
 
+    [ -f "$pkg/source" ] || err "missing source for '$NAME'"
+
+    p:use "$(cat "$pkg/source")"
+    VERSION="$(p:version "$CLONE")"
+
     rm -rf "$STAGING" && mkdir -p "$STAGING/DEBIAN" "$STAGING/usr/bin"
 
     while IFS=' ' read -r src_file dst_name; do
-      install -Dm755 "$DOTFILES_CLONE/$src_file" "$STAGING/usr/bin/$dst_name"
+      install -Dm755 "$CLONE/$src_file" "$STAGING/usr/bin/$dst_name"
     done < "$pkg/files"
 
     sed "s/^Version:.*/Version: ${VERSION#r}-1/" "$pkg/control" \

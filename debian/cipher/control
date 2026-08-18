@@ -1,0 +1,9 @@
+Package: cipher
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: arg, curl, jq, nodejs, shellutils
+Section: utils
+Priority: optional
+Description: Securely send passphrases and API keys
+ A tool for securely sending and receiving sensitive information ('secrets') such as passphrases, license keys, API credentials, or access tokens, with zero-knowledge end-to-end encryption.
