@@ -1,0 +1,9 @@
+Package: recipe
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: bash, shellutils
+Section: utils
+Priority: optional
+Description: Dependency-based command runner
+ Runs commands when their output is missing or older than their dependencies.
