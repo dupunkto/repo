@@ -2,9 +2,9 @@ class Keychain < Formula
   desc "GPG passphrase manager"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r555.466f0cf.tar.gz"
-  sha256 "ff1cf6a906d5ee328572ac9b3e23f7343c7ba727cf91835e24f4d0fe14627379"
-  version "r555.466f0cf"
+  url "https://repo.dupunkto.org/dotfiles-r558.7ae2c0b.tar.gz"
+  sha256 "dfbf8ec029325775389ccf6d1e649581772d730c35069a53151a56f023c140bd"
+  version "r558.7ae2c0b"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 
