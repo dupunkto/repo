@@ -241,6 +241,13 @@ release:debian() {
       install -Dm"${mode:-755}" "$CLONE/$src_file" "$STAGING/$dst_file"
     done < "$pkg/files"
 
+    if [ -f "$pkg/links" ]; then
+      while IFS=' ' read -r target link; do
+        mkdir -p "$STAGING/$(dirname "$link")"
+        ln -s "$target" "$STAGING/$link"
+      done < "$pkg/links"
+    fi
+
     sed "s/^Version:.*/Version: ${VERSION#r}-1/" "$pkg/control" \
       > "$STAGING/DEBIAN/control"
 

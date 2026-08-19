@@ -14,5 +14,6 @@ class Bake < Formula
 
   def install
     bin.install "bin/bake"
+    bin.install_symlink "bake" => "shake"
   end
 end

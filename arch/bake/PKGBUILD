@@ -18,4 +18,5 @@ pkgver() {
 package() {
   cd dotfiles
   install -Dm755 bin/bake "$pkgdir/usr/bin/bake"
+  ln -s bake "$pkgdir/usr/bin/shake"
 }

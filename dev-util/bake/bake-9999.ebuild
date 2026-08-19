@@ -14,4 +14,5 @@ RDEPEND="app-misc/shellutils"
 
 src_install() {
 	dobin bin/bake
+	dosym bake /usr/bin/shake
 }
