@@ -1,0 +1,21 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=cheese
+pkgdesc='Kaas. Now available online'
+pkgver=r1.7910419
+pkgrel=1
+arch=('any')
+url='https://git.dupunkto.org/~dupunkto/cheese'
+license=('Unlicense')
+depends=('python')
+source=("cheese::git+https://git.dupunkto.org/~dupunkto/cheese.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd cheese
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd cheese
+  install -Dm755 main.py "$pkgdir/usr/bin/cheese"
+}

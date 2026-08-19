@@ -1,0 +1,9 @@
+Package: cheese
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: python3
+Section: web
+Priority: optional
+Description: Kaas. Now available online
+ A small HTTP server for serving static files with clean URLs.
