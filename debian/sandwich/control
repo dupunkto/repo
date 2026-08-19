@@ -1,0 +1,9 @@
+Package: sandwich
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: bake
+Section: utils
+Priority: optional
+Description: Common development toolchain
+ A collection of shared bake targets for common development stacks.

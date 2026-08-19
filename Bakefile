@@ -11,6 +11,7 @@ SOURCES=(
   "dotfiles:meta/dotfiles:$CACHE/dotfiles"
   "cipher:dupunkto/cipher:$CACHE/cipher"
   "cheese:dupunkto/cheese:$CACHE/cheese"
+  "sandwich:dupunkto/sandwich:$CACHE/sandwich"
 )
 
 URL=https://repo.dupunkto.org
@@ -87,10 +88,15 @@ release() {
   CHEESE_VERSION="$(p:version "$CLONE")"
   CHEESE_COMMIT="$(p:commit "$CLONE")"
 
+  p:use sandwich
+  SANDWICH_VERSION="$(p:version "$CLONE")"
+  SANDWICH_COMMIT="$(p:commit "$CLONE")"
+
   echo "==> Releasing packages"
   echo "-> dotfiles $DOTFILES_VERSION ($DOTFILES_COMMIT)"
   echo "-> cipher $CIPHER_VERSION ($CIPHER_COMMIT)"
   echo "-> cheese $CHEESE_VERSION ($CHEESE_COMMIT)"
+  echo "-> sandwich $SANDWICH_VERSION ($SANDWICH_COMMIT)"
 
   # Clean up build artifacts from previous release.
   rm -rf "$DIST" && cp -r "$PUBLIC" "$DIST"
@@ -103,7 +109,7 @@ release() {
     git add arch Formula
 
     if ! git diff --cached --quiet; then
-      git commit -m "Release dotfiles/$DOTFILES_VERSION cipher/$CIPHER_VERSION cheese/$CHEESE_VERSION"
+      git commit -m "Release dotfiles/$DOTFILES_VERSION cipher/$CIPHER_VERSION cheese/$CHEESE_VERSION sandwich/$SANDWICH_VERSION"
     fi
 
     git push
@@ -226,8 +232,13 @@ release:debian() {
 
     rm -rf "$STAGING" && mkdir -p "$STAGING/DEBIAN" "$STAGING/usr/bin"
 
-    while IFS=' ' read -r src_file dst_name; do
-      install -Dm755 "$CLONE/$src_file" "$STAGING/usr/bin/$dst_name"
+    while IFS=' ' read -r src_file dst_file mode; do
+      case "$dst_file" in
+        */*) ;;
+        *) dst_file="usr/bin/$dst_file" ;;
+      esac
+
+      install -Dm"${mode:-755}" "$CLONE/$src_file" "$STAGING/$dst_file"
     done < "$pkg/files"
 
     sed "s/^Version:.*/Version: ${VERSION#r}-1/" "$pkg/control" \

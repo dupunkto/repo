@@ -1,0 +1,24 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=sandwich
+pkgdesc='Common development toolchain'
+pkgver=r1.6b73df9
+pkgrel=1
+arch=('any')
+url='https://git.dupunkto.org/~dupunkto/sandwich'
+license=('Unlicense')
+depends=('bake')
+source=("sandwich::git+https://git.dupunkto.org/~dupunkto/sandwich.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd sandwich
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd sandwich
+
+  for layer in bun elixir flask node phoenix php python; do
+    install -Dm644 "$layer" "$pkgdir/usr/share/bake/layers/$layer"
+  done
+}

@@ -1,0 +1,7 @@
+bun usr/share/bake/layers/bun 644
+elixir usr/share/bake/layers/elixir 644
+flask usr/share/bake/layers/flask 644
+node usr/share/bake/layers/node 644
+phoenix usr/share/bake/layers/phoenix 644
+php usr/share/bake/layers/php 644
+python usr/share/bake/layers/python 644
