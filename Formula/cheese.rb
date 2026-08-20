@@ -2,9 +2,9 @@ class Cheese < Formula
   desc "Kaas. Now available online"
   homepage "https://git.dupunkto.org/~dupunkto/cheese"
 
-  url "https://repo.dupunkto.org/cheese-r1.1eaec60.tar.gz"
-  version "r1.1eaec60"
-  sha256 "c397bf42d1f6d45e68179a90934095c6d409779efe82102737ad4afbf13f5d15"
+  url "https://repo.dupunkto.org/cheese-r2.2f6c685.tar.gz"
+  version "r2.2f6c685"
+  sha256 "4ca1bb36f9a6580276a7bf25162f9231f7b121ed29459f988a1ee0508e894232"
 
   license "Unlicense"
 
