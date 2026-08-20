@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=cheese
 pkgdesc='Kaas. Now available online'
-pkgver=r1.7910419
+pkgver=r1.1eaec60
 pkgrel=1
 arch=('any')
 url='https://git.dupunkto.org/~dupunkto/cheese'
