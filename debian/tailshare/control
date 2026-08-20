@@ -1,0 +1,9 @@
+Package: tailshare
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <axcelott@dupunkto.org>
+Depends: gum, python3, tailscale
+Section: net
+Priority: optional
+Description: Easily share files or directories over Tailscale
+ Send and receive files and directories between devices over Tailscale.

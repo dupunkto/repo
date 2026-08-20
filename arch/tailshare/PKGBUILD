@@ -1,0 +1,21 @@
+# Maintainer: Robin Boers <axcelott@dupunkto.org>
+pkgname=tailshare
+pkgdesc='Easily share files or directories over Tailscale'
+pkgver=r559.4277cf6
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('gum' 'python' 'tailscale')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/tailshare "$pkgdir/usr/bin/tailshare"
+}
