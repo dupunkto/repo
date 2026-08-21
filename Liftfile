@@ -1,5 +1,5 @@
 name: repo.dupunkto.org
 type: static
-host: nov
+host: nov.dupunk.to
 src: dist
 rsync: immediate
