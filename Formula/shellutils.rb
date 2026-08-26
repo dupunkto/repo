@@ -18,5 +18,6 @@ class Shellutils < Formula
     bin.install "bin/try"
     bin.install "bin/quiet"
     bin.install "bin/swallow"
+    bin.install "bin/dotenv"
   end
 end

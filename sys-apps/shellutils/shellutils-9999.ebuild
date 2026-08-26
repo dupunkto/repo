@@ -11,5 +11,5 @@ SLOT="0"
 KEYWORDS="-*"
 
 src_install() {
-	dobin bin/required bin/has bin/prompt bin/err bin/try bin/quiet bin/swallow
+	dobin bin/required bin/has bin/prompt bin/err bin/try bin/quiet bin/swallow bin/dotenv
 }
