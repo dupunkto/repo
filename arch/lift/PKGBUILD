@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=lift
 pkgdesc='Remote deployment manager for containers and static files'
-pkgver=r559.4277cf6
+pkgver=r569.aa0d046
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'

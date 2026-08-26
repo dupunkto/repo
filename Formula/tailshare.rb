@@ -2,9 +2,9 @@ class Tailshare < Formula
   desc "Easily share files or directories over Tailscale"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r559.4277cf6.tar.gz"
-  sha256 "b60864f47edc23a326e79fa249688331d8be34d8fa44710397f9d18c05b5c12e"
-  version "r559.4277cf6"
+  url "https://repo.dupunkto.org/dotfiles-r569.aa0d046.tar.gz"
+  sha256 "c7eeeab1f16062ed7cd37242c8788978ecad45802831ff599c09cfb39915f8e4"
+  version "r569.aa0d046"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 

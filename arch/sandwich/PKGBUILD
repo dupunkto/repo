@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=sandwich
 pkgdesc='Common development toolchain'
-pkgver=r1.6b73df9
+pkgver=r2.5818b6a
 pkgrel=1
 arch=('any')
 url='https://git.dupunkto.org/~dupunkto/sandwich'
