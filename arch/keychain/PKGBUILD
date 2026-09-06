@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <axcelott@dupunkto.org>
 pkgname=keychain
 pkgdesc='GPG passphrase manager'
-pkgver=r571.b05f573
+pkgver=r579.2173ef8
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'

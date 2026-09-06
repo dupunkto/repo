@@ -2,9 +2,9 @@ class Sandwich < Formula
   desc "Common development toolchain"
   homepage "https://git.dupunkto.org/~dupunkto/sandwich"
 
-  url "https://repo.dupunkto.org/sandwich-r2.5818b6a.tar.gz"
-  version "r2.5818b6a"
-  sha256 "333f01819656a7b19decd3a186284be02b92d3288e7ab60e647cbb18585968e7"
+  url "https://repo.dupunkto.org/sandwich-r3.204a8be.tar.gz"
+  version "r3.204a8be"
+  sha256 "bfd3802988777340631a2e63a820b5a6214ad894d8b73903e56a6d523f682c8f"
 
   license "Unlicense"
 
