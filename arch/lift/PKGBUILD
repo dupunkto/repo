@@ -6,7 +6,7 @@ pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'
 license=('Unlicense')
-depends=('bash' 'shellutils' 'go-yq' 'docker')
+depends=('bash' 'shellutils' 'go-yq' 'docker' 'openssh' 'rsync')
 source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
 b2sums=('SKIP')
 
@@ -17,6 +17,5 @@ pkgver() {
 
 package() {
   cd dotfiles
-  install -Dm755 bin/lift        "$pkgdir/usr/bin/lift"
-  install -Dm755 bin/lift-remote "$pkgdir/usr/bin/lift-remote"
+  install -Dm755 bin/lift "$pkgdir/usr/bin/lift"
 }

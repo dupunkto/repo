@@ -15,6 +15,5 @@ class Lift < Formula
 
   def install
     bin.install "bin/lift"
-    bin.install "bin/lift-remote"
   end
 end

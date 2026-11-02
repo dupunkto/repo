@@ -13,8 +13,10 @@ KEYWORDS="-*"
 RDEPEND="
 	app-misc/shellutils
 	app-misc/yq
+	net-misc/rsync
+	virtual/openssh
 "
 
 src_install() {
-	dobin bin/lift bin/lift-remote
+	dobin bin/lift
 }
