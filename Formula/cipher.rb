@@ -2,9 +2,9 @@ class Cipher < Formula
   desc "Zero-knowledge secret sharing CLI"
   homepage "https://git.dupunkto.org/~dupunkto/cipher"
 
-  url "https://repo.dupunkto.org/cipher-r26.48db851.tar.gz"
-  version "r26.48db851"
-  sha256 "680453f4f7a7b1e5489b9490b949d39c95c79288c673fccd980a1ae2b9a7fafe"
+  url "https://repo.dupunkto.org/cipher-r29.76d7a8e.tar.gz"
+  version "r29.76d7a8e"
+  sha256 "3995ad811d571fdca15a5892d51147e8de0695c2b7397e02f577194f9b8632e4"
 
   license "Unlicense"
 
