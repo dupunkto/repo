@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=cipher
 pkgdesc='Securely send passphrases and API keys'
 pkgver=r29.76d7a8e

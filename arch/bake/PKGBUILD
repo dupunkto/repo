@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=bake
 pkgdesc='Bash-based Makefile replacement'
 pkgver=r613.85b5b80

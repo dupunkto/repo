@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=recipe
 pkgdesc='Dependency-based command runner'
 pkgver=r613.85b5b80

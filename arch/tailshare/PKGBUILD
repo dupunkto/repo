@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=tailshare
 pkgdesc='Easily share files or directories over Tailscale'
 pkgver=r613.85b5b80

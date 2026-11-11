@@ -1,7 +1,7 @@
 Package: tailshare
 Version: 0.0.0
 Architecture: all
-Maintainer: Robin Boers <axcelott@dupunkto.org>
+Maintainer: Robin Boers <robin@dupunkto.org>
 Depends: gum, python3, tailscale
 Section: net
 Priority: optional

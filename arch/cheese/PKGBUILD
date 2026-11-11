@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=cheese
 pkgdesc='Kaas. Now available online'
 pkgver=r2.2f6c685

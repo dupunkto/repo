@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=dupunkto-keyring
 pkgdesc='GPG keys used to sign the dupunkto package repository'
 pkgver=1 # Bump on key rotation, not on every release.

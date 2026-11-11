@@ -16,7 +16,7 @@ SOURCES=(
 
 URL=https://repo.dupunkto.org
 
-export PACKAGER="Robin Boers <axcelott@dupunkto.org>"
+export PACKAGER="Robin Boers <robin@dupunkto.org>"
 export SIGNING_KEY=67129351629DE9FDD6382A22F3A58BE3EB77795B
 
 if [ "$(uname)" = "Darwin" ]; then

@@ -1,4 +1,4 @@
-# Maintainer: Robin Boers <axcelott@dupunkto.org>
+# Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=lift
 pkgdesc='Remote deployment manager for containers and static files'
 pkgver=r613.85b5b80

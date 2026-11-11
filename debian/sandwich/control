@@ -1,7 +1,7 @@
 Package: sandwich
 Version: 0.0.0
 Architecture: all
-Maintainer: Robin Boers <axcelott@dupunkto.org>
+Maintainer: Robin Boers <robin@dupunkto.org>
 Depends: bake
 Section: utils
 Priority: optional
