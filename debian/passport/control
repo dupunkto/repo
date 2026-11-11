@@ -1,0 +1,11 @@
+Package: passport
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <robin@dupunkto.org>
+Depends: bash, arg, shellutils, gnupg, git, qrencode, openssh-client
+Suggests: sec
+Section: utils
+Priority: optional
+Description: Hand a password store over to a phone through a looping QR code
+ Bundles a sec or pass store's remote, SSH key and GPG keys into a looping
+ QR code for the Passwords app to scan.

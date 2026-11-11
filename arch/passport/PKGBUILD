@@ -1,0 +1,22 @@
+# Maintainer: Robin Boers <robin@dupunkto.org>
+pkgname=passport
+pkgdesc='Hand a password store over to a phone through a looping QR code'
+pkgver=r642.f581e9a
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash' 'arg' 'shellutils' 'gnupg' 'git' 'qrencode' 'openssh')
+optdepends=('sec: complete sec store names')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/passport "$pkgdir/usr/bin/passport"
+}
