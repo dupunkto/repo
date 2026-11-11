@@ -2,9 +2,9 @@ class Arg < Formula
   desc "POSIX shell argument parser"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r642.f581e9a.tar.gz"
-  sha256 "319d3fd53b71db83328e35b27779ad95136294b038bdaf4eeb2d93112229f602"
-  version "r642.f581e9a"
+  url "https://repo.dupunkto.org/dotfiles-r646.7cc2855.tar.gz"
+  sha256 "0f848e5c376fcc7f9b2a98ac3fb99fdc56756e6e0cff713d9a0449c904e8f073"
+  version "r646.7cc2855"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 

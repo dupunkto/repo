@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=wt
 pkgdesc='Git worktree manager'
-pkgver=r642.f581e9a
+pkgver=r646.7cc2855
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'
