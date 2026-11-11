@@ -1,0 +1,11 @@
+Package: sec
+Version: 0.0.0
+Architecture: all
+Maintainer: Robin Boers <robin@dupunkto.org>
+Depends: bash, arg, shellutils, gnupg, git
+Suggests: qrencode, oathtool, wl-clipboard | xclip
+Section: utils
+Priority: optional
+Description: Password manager written in Bash
+ GPG-encrypted, git-backed password store with structured entries.
+ Ships sec, and the secq and secv query utilities.

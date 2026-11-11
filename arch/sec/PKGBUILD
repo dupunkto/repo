@@ -1,0 +1,27 @@
+# Maintainer: Robin Boers <robin@dupunkto.org>
+pkgname=sec
+pkgdesc='Password manager written in Bash'
+pkgver=r642.f581e9a
+pkgrel=1
+arch=('any')
+url='https://geheimesite.nl'
+license=('Unlicense')
+depends=('bash' 'arg' 'shellutils' 'gnupg' 'git')
+optdepends=('qrencode: render secrets as QR codes'
+            'oath-toolkit: TOTP codes from otpauth URIs'
+            'wl-clipboard: clipboard support on Wayland'
+            'xclip: clipboard support on X11')
+source=("dotfiles::git+https://git.dupunkto.org/meta/dotfiles.git")
+b2sums=('SKIP')
+
+pkgver() {
+  cd dotfiles
+  printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+  cd dotfiles
+  install -Dm755 bin/sec  "$pkgdir/usr/bin/sec"
+  install -Dm755 bin/secq "$pkgdir/usr/bin/secq"
+  install -Dm755 bin/secv "$pkgdir/usr/bin/secv"
+}
