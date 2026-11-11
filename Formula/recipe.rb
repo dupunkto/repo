@@ -2,9 +2,9 @@ class Recipe < Formula
   desc "Dependency-based command runner"
   homepage "https://geheimesite.nl"
 
-  url "https://repo.dupunkto.org/dotfiles-r613.85b5b80.tar.gz"
-  sha256 "c28d655d69a913f4dbd6fd07195a7761944a5e75a539054d0329020a9651c829"
-  version "r613.85b5b80"
+  url "https://repo.dupunkto.org/dotfiles-r642.f581e9a.tar.gz"
+  sha256 "319d3fd53b71db83328e35b27779ad95136294b038bdaf4eeb2d93112229f602"
+  version "r642.f581e9a"
 
   head "https://git.dupunkto.org/meta/dotfiles.git", branch: "master"
 

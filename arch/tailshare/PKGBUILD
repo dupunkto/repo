@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=tailshare
 pkgdesc='Easily share files or directories over Tailscale'
-pkgver=r613.85b5b80
+pkgver=r642.f581e9a
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'

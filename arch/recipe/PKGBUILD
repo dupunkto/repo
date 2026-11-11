@@ -1,7 +1,7 @@
 # Maintainer: Robin Boers <robin@dupunkto.org>
 pkgname=recipe
 pkgdesc='Dependency-based command runner'
-pkgver=r613.85b5b80
+pkgver=r642.f581e9a
 pkgrel=1
 arch=('any')
 url='https://geheimesite.nl'
