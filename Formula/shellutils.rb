@@ -19,5 +19,6 @@ class Shellutils < Formula
     bin.install "bin/quiet"
     bin.install "bin/swallow"
     bin.install "bin/dotenv"
+    bin.install "bin/mkpriv"
   end
 end

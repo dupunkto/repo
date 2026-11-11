@@ -25,4 +25,5 @@ package() {
   install -Dm755 bin/quiet     "$pkgdir/usr/bin/quiet"
   install -Dm755 bin/swallow   "$pkgdir/usr/bin/swallow"
   install -Dm755 bin/dotenv    "$pkgdir/usr/bin/dotenv"
+  install -Dm755 bin/mkpriv    "$pkgdir/usr/bin/mkpriv"
 }
