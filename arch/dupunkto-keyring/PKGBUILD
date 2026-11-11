@@ -2,7 +2,7 @@
 pkgname=dupunkto-keyring
 pkgdesc='GPG keys used to sign the dupunkto package repository'
 pkgver=1 # Bump on key rotation, not on every release.
-pkgrel=1
+pkgrel=2
 arch=('any')
 url='https://repo.dupunkto.org'
 license=('Unlicense')
