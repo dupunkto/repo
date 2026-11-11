@@ -8,7 +8,7 @@ EGIT_REPO_URI="https://git.dupunkto.org/meta/dotfiles.git"
 
 LICENSE="Unlicense"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS=""
 
 RDEPEND="sys-apps/coreutils sys-apps/shellutils"
 

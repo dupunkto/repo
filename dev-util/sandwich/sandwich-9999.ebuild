@@ -8,7 +8,7 @@ EGIT_REPO_URI="https://git.dupunkto.org/~dupunkto/sandwich.git"
 
 LICENSE="Unlicense"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS=""
 
 RDEPEND="dev-util/bake"
 
