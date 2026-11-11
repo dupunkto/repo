@@ -1,6 +1,6 @@
 EAPI=8
 
-inherit git-r3
+inherit git-r3 optfeature
 
 DESCRIPTION="GPG passphrase manager"
 HOMEPAGE="https://geheimesite.nl"
@@ -11,11 +11,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
 RDEPEND="
-	app-misc/shellutils
 	app-crypt/gnupg
+	sys-apps/shellutils
 "
-OPTFEATURE="sys-apps/systemd encrypted passphrase storage via systemd-creds"
 
 src_install() {
 	newbin bin/keychain keychain
+}
+
+pkg_postinst() {
+	optfeature "encrypted passphrase storage via systemd-creds" sys-apps/systemd
 }

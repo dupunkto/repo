@@ -10,7 +10,7 @@ LICENSE="Unlicense"
 SLOT="0"
 KEYWORDS="-*"
 
-RDEPEND="app-misc/shellutils"
+RDEPEND="sys-apps/shellutils"
 
 src_install() {
 	dobin bin/bake

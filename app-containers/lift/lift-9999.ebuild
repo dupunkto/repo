@@ -11,9 +11,9 @@ SLOT="0"
 KEYWORDS="-*"
 
 RDEPEND="
-	app-misc/shellutils
 	app-misc/yq
 	net-misc/rsync
+	sys-apps/shellutils
 	virtual/openssh
 "
 

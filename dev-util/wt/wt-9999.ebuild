@@ -11,8 +11,8 @@ SLOT="0"
 KEYWORDS="-*"
 
 RDEPEND="
-	app-misc/shellutils
 	dev-vcs/git
+	sys-apps/shellutils
 "
 
 src_install() {
